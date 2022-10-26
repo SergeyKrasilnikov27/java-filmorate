@@ -21,10 +21,10 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime filmDate = LocalDateTime.parse("2001-12-28-00-00", formatter);
 
-        Film film = new Film("");
+        Film film = new Film("something");
         film.setDuration(190);
+        film.setName("");
         film.setId(1);
-        film.setDescription("something");
         film.setReleaseDate(filmDate);
 
         FilmValidator filmValidator = new FilmValidator();
@@ -39,12 +39,12 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime filmDate = LocalDateTime.parse("2001-12-28-00-00", formatter);
 
-        Film film = new Film("something");
-        film.setDuration(190);
-        film.setId(1);
-        film.setDescription("somethingsomethingsomethingsomethingsomethingsomethingsomethingsomething" +
+        Film film = new Film("somethingsomethingsomethingsomethingsomethingsomethingsomethingsomething" +
                 "somethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomething" +
                 "somethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomething");
+        film.setDuration(190);
+        film.setName("something");
+        film.setId(1);
         film.setReleaseDate(filmDate);
 
         FilmValidator filmValidator = new FilmValidator();
@@ -61,8 +61,8 @@ class JavaFilmorateApplicationTests {
 
         Film film = new Film("something");
         film.setDuration(-2);
+        film.setName("something");
         film.setId(1);
-        film.setDescription("something");
         film.setReleaseDate(filmDate);
 
         FilmValidator filmValidator = new FilmValidator();
@@ -79,8 +79,8 @@ class JavaFilmorateApplicationTests {
 
         Film film = new Film("something");
         film.setDuration(190);
+        film.setName("something");
         film.setId(1);
-        film.setDescription("something");
         film.setReleaseDate(filmDate);
 
         FilmValidator filmValidator = new FilmValidator();
@@ -95,9 +95,8 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime birthdayDate = LocalDateTime.parse("1994-12-28-00-00", formatter);
 
-        User user = new User("Sergey");
+        User user = new User("это-неправильный?эмейл", "Sergey");
         user.setId(1);
-        user.setEmail("это-неправильный?эмейл");
         user.setBirthday(birthdayDate);
         user.setLogin("Sergey");
 
@@ -113,9 +112,8 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime birthdayDate = LocalDateTime.parse("1994-12-28-00-00", formatter);
 
-        User user = new User("Sergey");
+        User user = new User("Правильный@емейл", "Sergey");
         user.setId(1);
-        user.setEmail("это-неправильный?эмейл@");
         user.setBirthday(birthdayDate);
         user.setLogin("");
 
@@ -131,9 +129,8 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime birthdayDate = LocalDateTime.parse("1994-12-28-00-00", formatter);
 
-        User user = new User("Sergey");
+        User user = new User("Правильный@емейл", "Sergey");
         user.setId(1);
-        user.setEmail("это-неправильный?эмейл@");
         user.setBirthday(birthdayDate);
         user.setLogin("Sergey ");
 
@@ -149,9 +146,8 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime birthdayDate = LocalDateTime.parse("2040-12-28-00-00", formatter);
 
-        User user = new User("Sergey");
+        User user = new User("Правильный@емейл", "Sergey");
         user.setId(1);
-        user.setEmail("это-неправильный?эмейл@");
         user.setBirthday(birthdayDate);
         user.setLogin("Sergey");
 

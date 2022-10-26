@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 
 public class UserValidator {
 
+    final LocalDateTime now = LocalDateTime.now();
+
     public boolean validate(User user) {
         boolean approveUser = true;
-
-        LocalDateTime now = LocalDateTime.now();
 
         if (!user.getEmail().contains("@") || user.getEmail().isEmpty()) {
             approveUser = false;
