@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -13,6 +14,8 @@ public class Film {
     private String name;
     @NonNull
     private String description;
+    @NonNull
+    @JsonFormat(pattern = "yyyy-MM-dd-HH-mm")
     private LocalDateTime releaseDate;
     private int duration;
 }

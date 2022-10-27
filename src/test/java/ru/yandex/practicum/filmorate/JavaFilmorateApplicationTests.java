@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
@@ -21,11 +22,10 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime filmDate = LocalDateTime.parse("2001-12-28-00-00", formatter);
 
-        Film film = new Film("something");
+        Film film = new Film("something", filmDate);
         film.setDuration(190);
         film.setName("");
         film.setId(1);
-        film.setReleaseDate(filmDate);
 
         FilmValidator filmValidator = new FilmValidator();
         boolean assertResult = filmValidator.validate(film);
@@ -41,11 +41,10 @@ class JavaFilmorateApplicationTests {
 
         Film film = new Film("somethingsomethingsomethingsomethingsomethingsomethingsomethingsomething" +
                 "somethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomething" +
-                "somethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomething");
+                "somethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomething", filmDate);
         film.setDuration(190);
         film.setName("something");
         film.setId(1);
-        film.setReleaseDate(filmDate);
 
         FilmValidator filmValidator = new FilmValidator();
         boolean assertResult = filmValidator.validate(film);
@@ -59,11 +58,10 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime filmDate = LocalDateTime.parse("2001-12-28-00-00", formatter);
 
-        Film film = new Film("something");
+        Film film = new Film("something", filmDate);
         film.setDuration(-2);
         film.setName("something");
         film.setId(1);
-        film.setReleaseDate(filmDate);
 
         FilmValidator filmValidator = new FilmValidator();
         boolean assertResult = filmValidator.validate(film);
@@ -77,11 +75,10 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime filmDate = LocalDateTime.parse("1894-12-28-00-00", formatter);
 
-        Film film = new Film("something");
+        Film film = new Film("something", filmDate);
         film.setDuration(190);
         film.setName("something");
         film.setId(1);
-        film.setReleaseDate(filmDate);
 
         FilmValidator filmValidator = new FilmValidator();
         boolean assertResult = filmValidator.validate(film);

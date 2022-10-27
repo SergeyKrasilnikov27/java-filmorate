@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class UserValidator {
 
-    final LocalDateTime now = LocalDateTime.now();
+    final static LocalDateTime now = LocalDateTime.now();
 
     public boolean validate(User user) {
         boolean approveUser = true;

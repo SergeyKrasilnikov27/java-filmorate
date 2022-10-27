@@ -21,31 +21,36 @@ public class UserController {
         this.userTracker = new HashMap<>();
     }
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public List<User> findAll() {
         log.info("Take all users");
         return new ArrayList<>(userTracker.values());
     }
 
-    @PostMapping(value = "/user/create")
+    @PostMapping(value = "/users/create")
     public User create(@Valid @RequestBody User user) {
         if (userValidator.validate(user)) {
             log.debug("Create new object in userTracker " + user);
+            if (user.getName().isEmpty()) {
+                user.setName(user.getLogin());
+            }
             userTracker.put(user.getId(), user);
-        } else {
-            log.error("Validation error when create new object in userTracker " + user);
-            throw new ValidationException("Validation error!");
         }
+
         return user;
     }
 
-    @PostMapping(value = "/user/update")
+    @PostMapping(value = "/users/update")
     public User update(@Valid @RequestBody User user) {
+        if (!userTracker.containsKey(user.getId())) {
+            throw new NoSuchElementException("user not found!");
+        }
+
         if (userValidator.validate(user)) {
             log.debug("Update object in userTracker " + user);
             User userCurrent = new User(user.getEmail(), user.getLogin());
 
-            userCurrent.setId(userTracker.size() + 1);
+            userCurrent.setId(user.getId());
             if (user.getName().isEmpty()) {
                 userCurrent.setName(user.getLogin());
             } else {
@@ -53,17 +58,22 @@ public class UserController {
             }
             userCurrent.setBirthday(user.getBirthday());
             userTracker.put(userCurrent.getId(), userCurrent);
-        } else {
-            log.error("Validation error when update object in userTracker " + user);
-            throw new ValidationException("Validation error!");
         }
+
         return user;
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleNotFoundUser(final NoSuchElementException e) {
-        log.error("user not found!");
+        log.error("User not found!");
         return Map.of("error", "user not found!");
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleValidationError(final ValidationException e) {
+        log.error("Validation error when update object in userTracker!");
+        return Map.of("error", "Validation error!");
     }
 }

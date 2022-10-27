@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 
 public class FilmValidator {
 
-    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-    final LocalDateTime lastFilmDate = LocalDateTime.parse("1895-12-28-00-00", formatter);
+    final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
+    final static LocalDateTime lastFilmDate = LocalDateTime.parse("1895-12-28-00-00", formatter);
 
     public boolean validate(Film film) {
         boolean approveFilm = true;
