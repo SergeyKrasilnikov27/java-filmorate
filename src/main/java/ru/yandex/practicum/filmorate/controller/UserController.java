@@ -65,13 +65,6 @@ public class UserController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleNotFoundUser(final NoSuchElementException e) {
-        log.error("User not found!");
-        return Map.of("error", "user not found!");
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleValidationError(final ValidationException e) {
         log.error("Validation error when update object in userTracker!");
         return Map.of("error", "Validation error!");
