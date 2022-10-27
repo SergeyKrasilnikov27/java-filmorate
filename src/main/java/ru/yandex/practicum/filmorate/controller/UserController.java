@@ -35,6 +35,9 @@ public class UserController {
                 user.setName(user.getLogin());
             }
             userTracker.put(user.getId(), user);
+        } else {
+            log.error("Validation error when update object in userTracker!");
+            throw new ValidationException("Validation error!");
         }
 
         return user;
@@ -58,6 +61,9 @@ public class UserController {
             }
             userCurrent.setBirthday(user.getBirthday());
             userTracker.put(userCurrent.getId(), userCurrent);
+        } else {
+            log.error("Validation error when update object in userTracker!");
+            throw new ValidationException("Validation error!");
         }
 
         return user;
