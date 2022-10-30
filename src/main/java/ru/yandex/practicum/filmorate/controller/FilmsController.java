@@ -68,18 +68,4 @@ public class FilmsController {
 
         return film;
     }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleValidationError(final ValidationException e) {
-        log.error("Validation error when update object in filmTracker");
-        return Map.of("error", "Validation error!");
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleNotFoundFilm(final NoSuchElementException e) {
-        log.error("Film not found!");
-        return Map.of("error", "film not found!");
-    }
 }
