@@ -11,27 +11,27 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
-public class FilmController {
+public class FilmsController {
 
-    private static HashMap<Integer, Film> filmTracker;
-    private static final Logger log = Logger.getLogger(FilmController.class);
+    private static HashMap<Integer, Film> filmsTracker;
+    private static final Logger log = Logger.getLogger(FilmsController.class);
     private static final FilmValidator filmValidator = new FilmValidator();
 
-    public FilmController() {
-        this.filmTracker = new HashMap<>();
+    public FilmsController() {
+        this.filmsTracker = new HashMap<>();
     }
 
     @GetMapping("/films")
     public List<Film> findAll() {
         log.info("Take all films");
-        return new ArrayList<>(filmTracker.values());
+        return new ArrayList<>(filmsTracker.values());
     }
 
     @PostMapping(value = "/films/create")
     public Film create(@Valid @RequestBody Film film) {
         if (filmValidator.validate(film)) {
             log.debug("Create new object in filmTracker " + film);
-            filmTracker.put(film.getId(), film);
+            filmsTracker.put(film.getId(), film);
         } else {
             log.error("Validation error when update object in filmTracker!");
             throw new ValidationException("Validation error!");
@@ -42,7 +42,7 @@ public class FilmController {
 
     @PostMapping(value = "/films/update")
     public Film update(@Valid @RequestBody Film film) {
-        if (!filmTracker.containsKey(film.getId())) {
+        if (!filmsTracker.containsKey(film.getId())) {
             throw new NoSuchElementException("film not found!");
         }
 
@@ -53,7 +53,7 @@ public class FilmController {
             filmCurrent.setId(film.getId());
             filmCurrent.setName(film.getName());
             filmCurrent.setDuration(film.getDuration());
-            filmTracker.put(filmCurrent.getId(), filmCurrent);
+            filmsTracker.put(filmCurrent.getId(), filmCurrent);
         } else {
             log.error("Validation error when update object in filmTracker!");
             throw new ValidationException("Validation error!");

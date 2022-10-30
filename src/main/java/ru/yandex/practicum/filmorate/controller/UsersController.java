@@ -11,20 +11,20 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
-public class UserController {
+public class UsersController {
 
-    private static HashMap<Integer, User> userTracker;
-    private static final Logger log = Logger.getLogger(UserController.class);
+    private static HashMap<Integer, User> usersTracker;
+    private static final Logger log = Logger.getLogger(UsersController.class);
     private static final UserValidator userValidator = new UserValidator();
 
-    public UserController() {
-        this.userTracker = new HashMap<>();
+    public UsersController() {
+        this.usersTracker = new HashMap<>();
     }
 
     @GetMapping("/users")
     public List<User> findAll() {
         log.info("Take all users");
-        return new ArrayList<>(userTracker.values());
+        return new ArrayList<>(usersTracker.values());
     }
 
     @PostMapping(value = "/users/create")
@@ -34,7 +34,7 @@ public class UserController {
             if (user.getName().isEmpty()) {
                 user.setName(user.getLogin());
             }
-            userTracker.put(user.getId(), user);
+            usersTracker.put(user.getId(), user);
         } else {
             log.error("Validation error when update object in userTracker!");
             throw new ValidationException("Validation error!");
@@ -45,7 +45,7 @@ public class UserController {
 
     @PostMapping(value = "/users/update")
     public User update(@Valid @RequestBody User user) {
-        if (!userTracker.containsKey(user.getId())) {
+        if (!usersTracker.containsKey(user.getId())) {
             throw new NoSuchElementException("user not found!");
         }
 
@@ -60,7 +60,7 @@ public class UserController {
                 userCurrent.setName(user.getName());
             }
             userCurrent.setBirthday(user.getBirthday());
-            userTracker.put(userCurrent.getId(), userCurrent);
+            usersTracker.put(userCurrent.getId(), userCurrent);
         } else {
             log.error("Validation error when update object in userTracker!");
             throw new ValidationException("Validation error!");
