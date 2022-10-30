@@ -56,18 +56,13 @@ public class UsersController {
 
         if (userValidator.validate(user)) {
             log.debug("Update object in userTracker " + user);
-            User userCurrent = new User();
 
-            userCurrent.setId(user.getId());
-            userCurrent.setEmail(user.getEmail());
-            userCurrent.setLogin(user.getLogin());
             if (user.getName().isEmpty()) {
-                userCurrent.setName(user.getLogin());
+                user.setName(user.getLogin());
             } else {
-                userCurrent.setName(user.getName());
+                user.setName(user.getName());
             }
-            userCurrent.setBirthday(user.getBirthday());
-            usersTracker.put(userCurrent.getId(), userCurrent);
+            usersTracker.put(user.getId(), user);
         } else {
             log.error("Validation error when update object in userTracker!");
             throw new ValidationException("Validation error!");

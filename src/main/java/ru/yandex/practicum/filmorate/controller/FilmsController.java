@@ -53,14 +53,8 @@ public class FilmsController {
 
         if (filmValidator.validate(film)) {
             log.debug("Update object in filmTracker " + film);
-            Film filmCurrent = new Film();
 
-            filmCurrent.setId(film.getId());
-            filmCurrent.setDescription(film.getDescription());
-            filmCurrent.setReleaseDate(film.getReleaseDate());
-            filmCurrent.setName(film.getName());
-            filmCurrent.setDuration(film.getDuration());
-            filmsTracker.put(filmCurrent.getId(), filmCurrent);
+            filmsTracker.put(film.getId(), film);
         } else {
             log.error("Validation error when update object in filmTracker!");
             throw new ValidationException("Validation error!");
