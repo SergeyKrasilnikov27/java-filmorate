@@ -21,10 +21,12 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime filmDate = LocalDateTime.parse("2001-12-28-00-00", formatter);
 
-        Film film = new Film("something", filmDate);
+        Film film = new Film();
         film.setDuration(190);
         film.setName("");
         film.setId(1);
+        film.setReleaseDate(filmDate);
+        film.setDescription("something");
 
         FilmValidator filmValidator = new FilmValidator();
         boolean assertResult = filmValidator.validate(film);
@@ -38,12 +40,14 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime filmDate = LocalDateTime.parse("2001-12-28-00-00", formatter);
 
-        Film film = new Film("somethingsomethingsomethingsomethingsomethingsomethingsomethingsomething" +
-                "somethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomething" +
-                "somethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomething", filmDate);
+        Film film = new Film();
         film.setDuration(190);
         film.setName("something");
         film.setId(1);
+        film.setReleaseDate(filmDate);
+        film.setDescription("somethingsomethingsomethingsomethingsomethingsomethingsomethingsomething" +
+                "somethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomething" +
+                "somethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomethingsomething");
 
         FilmValidator filmValidator = new FilmValidator();
         boolean assertResult = filmValidator.validate(film);
@@ -57,10 +61,12 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime filmDate = LocalDateTime.parse("2001-12-28-00-00", formatter);
 
-        Film film = new Film("something", filmDate);
+        Film film = new Film();
         film.setDuration(-2);
         film.setName("something");
         film.setId(1);
+        film.setReleaseDate(filmDate);
+        film.setDescription("something");
 
         FilmValidator filmValidator = new FilmValidator();
         boolean assertResult = filmValidator.validate(film);
@@ -74,10 +80,12 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime filmDate = LocalDateTime.parse("1894-12-28-00-00", formatter);
 
-        Film film = new Film("something", filmDate);
+        Film film = new Film();
         film.setDuration(190);
         film.setName("something");
         film.setId(1);
+        film.setReleaseDate(filmDate);
+        film.setDescription("something");
 
         FilmValidator filmValidator = new FilmValidator();
         boolean assertResult = filmValidator.validate(film);
@@ -91,10 +99,12 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime birthdayDate = LocalDateTime.parse("1994-12-28-00-00", formatter);
 
-        User user = new User("это-неправильный?эмейл", "Sergey");
+        User user = new User();
         user.setId(1);
         user.setBirthday(birthdayDate);
         user.setLogin("Sergey");
+        user.setEmail("это-неправильный?эмейл");
+        user.setName("Sergey");
 
         UserValidator userValidator = new UserValidator();
         boolean assertResult = userValidator.validate(user);
@@ -108,10 +118,12 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime birthdayDate = LocalDateTime.parse("1994-12-28-00-00", formatter);
 
-        User user = new User("Правильный@емейл", "Sergey");
+        User user = new User();
         user.setId(1);
         user.setBirthday(birthdayDate);
         user.setLogin("");
+        user.setEmail("Правильный@емейл");
+        user.setName("Sergey");
 
         UserValidator userValidator = new UserValidator();
         boolean assertResult = userValidator.validate(user);
@@ -125,10 +137,12 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime birthdayDate = LocalDateTime.parse("1994-12-28-00-00", formatter);
 
-        User user = new User("Правильный@емейл", "Sergey");
+        User user = new User();
         user.setId(1);
         user.setBirthday(birthdayDate);
         user.setLogin("Sergey ");
+        user.setEmail("Правильный@емейл");
+        user.setName("Sergey");
 
         UserValidator userValidator = new UserValidator();
         boolean assertResult = userValidator.validate(user);
@@ -142,10 +156,12 @@ class JavaFilmorateApplicationTests {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime birthdayDate = LocalDateTime.parse("2040-12-28-00-00", formatter);
 
-        User user = new User("Правильный@емейл", "Sergey");
+        User user = new User();
         user.setId(1);
         user.setBirthday(birthdayDate);
         user.setLogin("Sergey");
+        user.setEmail("Правильный@емейл");
+        user.setName("Sergey");
 
         UserValidator userValidator = new UserValidator();
         boolean assertResult = userValidator.validate(user);

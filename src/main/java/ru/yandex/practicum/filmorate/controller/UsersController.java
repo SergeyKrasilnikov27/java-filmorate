@@ -51,9 +51,11 @@ public class UsersController {
 
         if (userValidator.validate(user)) {
             log.debug("Update object in userTracker " + user);
-            User userCurrent = new User(user.getEmail(), user.getLogin());
+            User userCurrent = new User();
 
             userCurrent.setId(user.getId());
+            userCurrent.setEmail(user.getEmail());
+            userCurrent.setLogin(user.getLogin());
             if (user.getName().isEmpty()) {
                 userCurrent.setName(user.getLogin());
             } else {
