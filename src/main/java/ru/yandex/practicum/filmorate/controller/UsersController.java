@@ -16,6 +16,7 @@ public class UsersController {
     private static HashMap<Integer, User> usersTracker;
     private static final Logger log = Logger.getLogger(UsersController.class);
     private static final UserValidator userValidator = new UserValidator();
+    private int usersTrackerCounter;
 
     public UsersController() {
         this.usersTracker = new HashMap<>();
@@ -31,6 +32,9 @@ public class UsersController {
     public User create(@Valid @RequestBody User user) {
         if (userValidator.validate(user)) {
             log.debug("Create new object in userTracker " + user);
+            if (user.getId() == 0) {
+                user.setId(++usersTrackerCounter);
+            }
             if (user.getName().isEmpty()) {
                 user.setName(user.getLogin());
             }
@@ -43,7 +47,7 @@ public class UsersController {
         return user;
     }
 
-    @PostMapping(value = "/users/update")
+    @PutMapping(value = "/users/update")
     public User update(@Valid @RequestBody User user) {
         if (!usersTracker.containsKey(user.getId())) {
             throw new NoSuchElementException("user not found!");

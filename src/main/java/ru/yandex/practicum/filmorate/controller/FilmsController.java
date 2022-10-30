@@ -16,6 +16,7 @@ public class FilmsController {
     private static HashMap<Integer, Film> filmsTracker;
     private static final Logger log = Logger.getLogger(FilmsController.class);
     private static final FilmValidator filmValidator = new FilmValidator();
+    private int filmsTrackerCounter;
 
     public FilmsController() {
         this.filmsTracker = new HashMap<>();
@@ -31,6 +32,9 @@ public class FilmsController {
     public Film create(@Valid @RequestBody Film film) {
         if (filmValidator.validate(film)) {
             log.debug("Create new object in filmTracker " + film);
+            if (film.getId() == 0) {
+                film.setId(++filmsTrackerCounter);
+            }
             filmsTracker.put(film.getId(), film);
         } else {
             log.error("Validation error when update object in filmTracker!");
@@ -40,7 +44,7 @@ public class FilmsController {
         return film;
     }
 
-    @PostMapping(value = "/films/update")
+    @PutMapping(value = "/films/update")
     public Film update(@Valid @RequestBody Film film) {
         if (!filmsTracker.containsKey(film.getId())) {
             throw new NoSuchElementException("film not found!");
