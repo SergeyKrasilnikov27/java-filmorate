@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
+@RequestMapping("/films")
 public class FilmsController {
 
     private static HashMap<Integer, Film> filmsTracker;
@@ -22,13 +23,13 @@ public class FilmsController {
         this.filmsTracker = new HashMap<>();
     }
 
-    @GetMapping("/films")
+    @GetMapping
     public List<Film> findAll() {
         log.info("Take all films");
         return new ArrayList<>(filmsTracker.values());
     }
 
-    @PostMapping(value = "/films/create")
+    @PostMapping
     public Film create(@Valid @RequestBody Film film) {
         if (filmValidator.validate(film)) {
             log.debug("Create new object in filmTracker " + film);
@@ -44,7 +45,7 @@ public class FilmsController {
         return film;
     }
 
-    @PutMapping(value = "/films/update")
+    @PutMapping
     public Film update(@Valid @RequestBody Film film) {
         if (!filmsTracker.containsKey(film.getId())) {
             throw new NoSuchElementException("film not found!");

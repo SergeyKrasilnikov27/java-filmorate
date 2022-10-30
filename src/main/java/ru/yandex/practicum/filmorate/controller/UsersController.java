@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.util.*;
 
 @RestController
+@RequestMapping("/users")
 public class UsersController {
 
     private static HashMap<Integer, User> usersTracker;
@@ -22,13 +23,13 @@ public class UsersController {
         this.usersTracker = new HashMap<>();
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> findAll() {
         log.info("Take all users");
         return new ArrayList<>(usersTracker.values());
     }
 
-    @PostMapping(value = "/users/create")
+    @PostMapping
     public User create(@Valid @RequestBody User user) {
         if (userValidator.validate(user)) {
             log.debug("Create new object in userTracker " + user);
@@ -47,7 +48,7 @@ public class UsersController {
         return user;
     }
 
-    @PutMapping(value = "/users/update")
+    @PutMapping
     public User update(@Valid @RequestBody User user) {
         if (!usersTracker.containsKey(user.getId())) {
             throw new NoSuchElementException("user not found!");
