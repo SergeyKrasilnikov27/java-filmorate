@@ -24,9 +24,9 @@ public class FilmsController {
     }
 
     @GetMapping
-    public List<Film> findAll() {
+    public Collection<Film> findAll() {
         log.info("Take all films");
-        return new ArrayList<>(filmsTracker.values());
+        return filmsTracker.values();
     }
 
     @PostMapping
