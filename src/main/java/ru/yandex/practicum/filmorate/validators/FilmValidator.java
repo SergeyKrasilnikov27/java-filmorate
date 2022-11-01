@@ -20,7 +20,7 @@ public class FilmValidator {
             approveFilm = false;
         } else if (lastFilmDate.isAfter(film.getReleaseDate())) {
             approveFilm = false;
-        } else if (film.getName().isEmpty()) {
+        } else if (film.getName().isEmpty() || film.getName() == null) {
             approveFilm = false;
         }
 
