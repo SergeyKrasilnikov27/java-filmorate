@@ -24,9 +24,9 @@ public class UsersController {
     }
 
     @GetMapping
-    public Collection<User> findAll() {
+    public List<User> findAll() {
         log.info("Take all users");
-        return usersTracker.values();
+        return new ArrayList(usersTracker.values());
     }
 
     @PostMapping
