@@ -50,7 +50,7 @@ public class UsersController {
 
     @PutMapping
     public User update(@Valid @RequestBody User user) {
-        if (usersTracker.containsKey(user.getId())) {
+        if (!usersTracker.containsKey(user.getId())) {
             throw new NoSuchElementException("user not found!");
         }
 

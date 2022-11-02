@@ -46,7 +46,7 @@ public class FilmsController {
 
     @PutMapping
     public Film update(@Valid @RequestBody Film film) {
-        if (filmsTracker.containsKey(film.getId())) {
+        if (!filmsTracker.containsKey(film.getId())) {
             throw new NoSuchElementException("film not found!");
         }
 
