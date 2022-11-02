@@ -20,5 +20,6 @@ public class Film {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime releaseDate;
     private int duration;
+    private int rate;
 }
 
