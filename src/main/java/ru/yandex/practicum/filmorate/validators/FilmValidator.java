@@ -1,13 +1,15 @@
 package ru.yandex.practicum.filmorate.validators;
 
 import ru.yandex.practicum.filmorate.model.Film;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class FilmValidator {
 
-    final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
-    final static LocalDateTime lastFilmDate = LocalDateTime.parse("1895-12-28-00-00", formatter);
+    final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    final static LocalDate lastFilmDate = LocalDate.parse("1895-12-28", formatter);
 
     public boolean validate(Film film) {
         boolean approveFilm = true;
