@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -22,5 +22,5 @@ public class User {
     private String login;
     private String name;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 }

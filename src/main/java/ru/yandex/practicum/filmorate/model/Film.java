@@ -6,7 +6,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,7 +18,7 @@ public class Film {
     private String description;
     @NonNull
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime releaseDate;
+    private LocalDate releaseDate;
     private int duration;
     private int rate;
 }
