@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.yandex.practicum.filmorate.controller.UsersController;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
@@ -168,20 +169,4 @@ class JavaFilmorateApplicationTests {
 
         assertFalse(assertResult);
     }
-
-    /*@Test
-    void test() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate birthdayDate = LocalDate.parse("1946-08-20", formatter);
-
-        User user = new User();
-        user.setBirthday(birthdayDate);
-        user.setLogin("dolore");
-        user.setEmail("mail@mail.ru");
-        user.setName("Nick Name");
-
-        UserValidator userValidator = new UserValidator();
-        userValidator.validate(user);
-
-    }*/
 }

@@ -36,7 +36,7 @@ public class UsersController {
             if (user.getId() == 0) {
                 user.setId(++usersTrackerCounter);
             }
-            if (user.getName().isBlank() || user.getName() == null) {
+            if (user.getName() == null || user.getName().isBlank()) {
                 user.setName(user.getLogin());
             }
             usersTracker.put(user.getId(), user);
