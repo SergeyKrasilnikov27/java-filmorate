@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,4 +25,5 @@ public class User {
     private String name;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
+    private Set<Integer> friends = new HashSet<>();
 }

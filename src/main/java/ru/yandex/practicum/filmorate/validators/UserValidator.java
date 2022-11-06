@@ -1,10 +1,11 @@
 package ru.yandex.practicum.filmorate.validators;
 
+import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
+@Component
 public class UserValidator {
 
     final static LocalDate now = LocalDate.now();
