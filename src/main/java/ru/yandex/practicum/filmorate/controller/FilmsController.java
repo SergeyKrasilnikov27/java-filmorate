@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
-
-import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -28,14 +26,14 @@ public class FilmsController {
     }
 
     @PostMapping
-    public Film createFilm(@Valid @RequestBody Film film) {
+    public Film createFilm(@RequestBody Film film) {
         filmService.createFilm(film);
 
         return film;
     }
 
     @PutMapping
-    public Film updateFilm(@Valid @RequestBody Film film) {
+    public Film updateFilm(@RequestBody Film film) {
         filmService.updateFilm(film);
 
         return film;
