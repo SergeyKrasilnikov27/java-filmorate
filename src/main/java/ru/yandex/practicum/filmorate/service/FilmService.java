@@ -61,6 +61,10 @@ public class FilmService {
             log.error("Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
+        if (!userService.getAllUser().containsKey(id)) {
+            log.debug("removeFriend : User with id = " + id + "not found!");
+            throw new NoFoundElementException("User with id = " + id + "not found!");
+        }
 
         log.info("Add like to film with id =  " + id);
         getFilmById(id).getLikes().add(userService.getUserById(idUser));
@@ -71,16 +75,16 @@ public class FilmService {
             log.error("Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
+        if (!userService.getAllUser().containsKey(id)) {
+            log.debug("removeFriend : User with id = " + id + "not found!");
+            throw new NoFoundElementException("User with id = " + id + "not found!");
+        }
 
         log.info("Remove like from film by id =  " + id);
         getFilmById(id).getLikes().remove(userService.getUserById(idUser));
     }
 
     public List<Film> getMostPopularFilm(int count) {
-        if (count == 0) {
-            count = 10;
-        }
-
         log.info("Remove most popular film");
         return filmStorage
                 .getAllFilms()
@@ -97,6 +101,11 @@ public class FilmService {
     }
 
     public Film getFilmById(int id) {
+        if (!filmStorage.getAllFilms().containsKey(id)) {
+            log.error("Film not found! id = " + id);
+            throw new NoFoundElementException("Film not found! id = " + id);
+        }
+
         log.info("Get film by id = " + id);
         return filmStorage.getAllFilms().get(id);
     }
