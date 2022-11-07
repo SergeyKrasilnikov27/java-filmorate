@@ -61,9 +61,9 @@ public class FilmService {
             log.error("Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
-        if (!userService.getAllUser().containsKey(id)) {
-            log.debug("removeFriend : User with id = " + id + "not found!");
-            throw new NoFoundElementException("User with id = " + id + "not found!");
+        if (!userService.getAllUser().containsKey(idUser)) {
+            log.debug("removeFriend : User with id = " + idUser + "not found!");
+            throw new NoFoundElementException("User with id = " + idUser + "not found!");
         }
 
         log.info("Add like to film with id =  " + id);
@@ -75,9 +75,9 @@ public class FilmService {
             log.error("Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
-        if (!userService.getAllUser().containsKey(id)) {
-            log.debug("removeFriend : User with id = " + id + "not found!");
-            throw new NoFoundElementException("User with id = " + id + "not found!");
+        if (!userService.getAllUser().containsKey(idUser)) {
+            log.debug("removeFriend : User with id = " + idUser + "not found!");
+            throw new NoFoundElementException("User with id = " + idUser + "not found!");
         }
 
         log.info("Remove like from film by id =  " + id);
