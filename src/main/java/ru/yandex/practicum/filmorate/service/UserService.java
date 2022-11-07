@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.validators.UserValidator;
+import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException;
 import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
 
 import java.util.List;
@@ -120,7 +121,7 @@ public class UserService {
     public User getUserById(int id) {
         if (!userStorage.getAllUser().containsKey(id)) {
             log.debug("User with id = " + id + "not found!");
-            throw new NoSuchElementException("User with id = " + id + "not found!");
+            throw new NoFoundElementException("User with id = " + id + "not found!");
         }
 
         log.info("Get user id = " + id);
@@ -130,7 +131,7 @@ public class UserService {
     public List<User> getUserFriends(int id) {
         if (userStorage.getAllUser().isEmpty()) {
             log.debug("User's friends list with id = " + id + " is empty!");
-            throw new NoSuchElementException("User's friends list with id = " + id + " is empty!");
+            throw new NoFoundElementException("User's friends list with id = " + id + " is empty!");
         }
 
         log.info("Get all user friends id = " + id);

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
+import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException;
 import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
 
 import java.util.Comparator;
@@ -43,7 +44,7 @@ public class FilmService {
         int idFilm = film.getId();
         if (!filmStorage.getAllFilms().containsKey(idFilm)) {
             log.error("Film not found! id = " + idFilm);
-            throw new NoSuchElementException("Film not found! id = " + idFilm);
+            throw new NoFoundElementException("Film not found! id = " + idFilm);
         }
 
         if (filmValidator.validate(film)) {
@@ -52,7 +53,7 @@ public class FilmService {
             filmStorage.updateFilm(film);
         } else {
             log.error("Validation error when update object in FilmStorage!");
-            throw new ValidationException("Validation error!");
+            throw new NoFoundElementException("Validation error!");
         }
     }
 
@@ -69,7 +70,7 @@ public class FilmService {
     public void removeLikeFromFilm(int id, int idUser) {
         if (!filmStorage.getAllFilms().containsKey(id)) {
             log.error("Film not found! id = " + id);
-            throw new NoSuchElementException("Film not found! id = " + id);
+            throw new NoFoundElementException("Film not found! id = " + id);
         }
 
         log.info("Remove like from film by id =  " + id);
