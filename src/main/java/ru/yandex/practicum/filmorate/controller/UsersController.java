@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
-import ru.yandex.practicum.filmorate.validators.UserValidator;
-import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
 
 import javax.validation.Valid;
 import java.util.*;
