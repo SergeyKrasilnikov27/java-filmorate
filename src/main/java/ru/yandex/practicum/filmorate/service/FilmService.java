@@ -12,7 +12,6 @@ import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,7 +59,7 @@ public class FilmService {
     public void addLikeToFilm(int id, int idUser) {
         if (!filmStorage.getAllFilms().containsKey(id)) {
             log.error("Film not found! id = " + id);
-            throw new NoSuchElementException("Film not found! id = " + id);
+            throw new NoFoundElementException("Film not found! id = " + id);
         }
 
         log.info("Add like to film with id =  " + id);

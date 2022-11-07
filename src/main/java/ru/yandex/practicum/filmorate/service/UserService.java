@@ -11,7 +11,6 @@ import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
 
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,17 +39,17 @@ public class UserService {
     public void removeFriend(int id, int friendId) {
         if (!userStorage.getAllUser().containsKey(id)) {
             log.debug("removeFriend : User with id = " + id + "not found!");
-            throw new NoSuchElementException("User with id = " + id + "not found!");
+            throw new NoFoundElementException("User with id = " + id + "not found!");
         }
 
         if (!userStorage.getAllUser().containsKey(friendId)) {
             log.debug("removeFriend : User with id = " + friendId + "not found!");
-            throw new NoSuchElementException("User with id = " + friendId + "not found!");
+            throw new NoFoundElementException("User with id = " + friendId + "not found!");
         }
 
         if (!getUserFriends(id).contains(userStorage.getAllUser().get(friendId))) {
             log.debug("removeFriend : User with id = " + friendId + "not found!");
-            throw new NoSuchElementException("User with id = " + friendId + "not found!");
+            throw new NoFoundElementException("User with id = " + friendId + "not found!");
         }
 
         log.info("Remove friend to user by id = " + id);
@@ -61,12 +60,12 @@ public class UserService {
     public void addFriend(int id, int friendId) {
         if (!userStorage.getAllUser().containsKey(id)) {
             log.debug("addFriend : User with id = " + id + "not found!");
-            throw new NoSuchElementException("User with id = " + id + "not found!");
+            throw new NoFoundElementException("User with id = " + id + "not found!");
         }
 
         if (!userStorage.getAllUser().containsKey(friendId)) {
             log.debug("addFriend : User with id = " + friendId + "not found!");
-            throw new NoSuchElementException("User with id = " + friendId + "not found!");
+            throw new NoFoundElementException("User with id = " + friendId + "not found!");
         }
 
         log.info("Add friend to user by id = " + id);
@@ -77,7 +76,7 @@ public class UserService {
     public void updateUser(User user) {
         if (!userStorage.getAllUser().containsKey(user.getId())) {
             log.debug("updateUser : User with id = " + user.getId() + "not found!");
-            throw new NoSuchElementException("User with id = " + user.getId() + "not found!");
+            throw new NoFoundElementException("User with id = " + user.getId() + "not found!");
         }
 
         if (userValidator.validate(user)) {
@@ -98,12 +97,12 @@ public class UserService {
     public List<User> getCommonFriends(int id, int friendId) {
         if (!userStorage.getAllUser().containsKey(id)) {
             log.debug("getCommonFriends : User with id = " + id + "not found!");
-            throw new NoSuchElementException("User with id = " + id + "not found!");
+            throw new NoFoundElementException("User with id = " + id + "not found!");
         }
 
         if (!userStorage.getAllUser().containsKey(friendId)) {
             log.debug("getCommonFriends : User with id = " + friendId + "not found!");
-            throw new NoSuchElementException("User with id = " + friendId + "not found!");
+            throw new NoFoundElementException("User with id = " + friendId + "not found!");
         }
 
         log.info("Take all common friends of User " + id + " and " + friendId);
