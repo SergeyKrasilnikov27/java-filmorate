@@ -55,7 +55,7 @@ public class FilmsController {
     }
 
     @GetMapping("/popular")
-    public Collection<Film> getTopFilm(
+    public Collection<Film> getMostPopularFilm(
             @RequestParam(value = "count", defaultValue = "0", required = false) Integer count) {
         return filmService.getMostPopularFilm(count);
     }

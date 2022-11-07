@@ -47,6 +47,11 @@ public class UserService {
             throw new NoSuchElementException("User with id = " + friendId + "not found!");
         }
 
+        if (!getUserFriends(id).contains(userStorage.getAllUser().get(friendId))) {
+            log.debug("removeFriend : User with id = " + friendId + "not found!");
+            throw new NoSuchElementException("User with id = " + friendId + "not found!");
+        }
+
         log.info("Remove friend to user by id = " + id);
         getUserById(id).getFriends().remove(friendId);
         getUserById(friendId).getFriends().remove(id);
