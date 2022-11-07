@@ -3,9 +3,14 @@ package ru.yandex.practicum.filmorate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.yandex.practicum.filmorate.controller.FilmsController;
 import ru.yandex.practicum.filmorate.controller.UsersController;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
 import ru.yandex.practicum.filmorate.validators.UserValidator;
 
@@ -168,5 +173,43 @@ class JavaFilmorateApplicationTests {
         boolean assertResult = userValidator.validate(user);
 
         assertFalse(assertResult);
+    }
+
+    @Test
+    void test() {
+        FilmsController filmController = new FilmsController(new FilmService(new InMemoryFilmStorage(), new FilmValidator(), new UserService(new InMemoryUserStorage(), new UserValidator())));
+        UsersController userController = new UsersController(new UserService(new InMemoryUserStorage(), new UserValidator()));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate birthdayDate = LocalDate.parse("1946-08-20", formatter);
+
+        User user = new User();
+        user.setBirthday(birthdayDate);
+        user.setLogin("common");
+        user.setEmail("mail@mail.ru");
+        user.setName("Nick Name");
+
+        userController.createUser(user);
+
+        LocalDate filmDate = LocalDate.parse("1999-04-30", formatter);
+        Film film = new Film();
+        film.setDuration(190);
+        film.setName("New film");
+        film.setReleaseDate(filmDate);
+        film.setDescription("New film about friends");
+        film.setRate(4);
+
+        filmController.createFilm(film);
+
+        LocalDate filmDate1 = LocalDate.parse("1999-04-30", formatter);
+        Film film1 = new Film();
+        film1.setDuration(190);
+        film1.setName("New film");
+        film1.setReleaseDate(filmDate1);
+        film1.setDescription("New film friends");
+        film1.setRate(4);
+
+        filmController.createFilm(film1);
+
+        filmController.addLikeToFilm(2, 1);
     }
 }

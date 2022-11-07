@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,7 +22,7 @@ public class Film {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
     private int duration;
-    private List<User> likes;
+    private List<User> likes = new ArrayList<>();
     private int rate;
 }
 

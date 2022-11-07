@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class FilmService {
-    private FilmStorage filmStorage;
-    private UserService userService;
+    private final FilmStorage filmStorage;
+    private final UserService userService;
     private final FilmValidator filmValidator;
 
     @Autowired
@@ -36,16 +36,17 @@ public class FilmService {
             log.error("Validation error when update object in FilmStorage!");
             throw new ValidationException("Validation error!");
         }
+
         return film;
     }
 
     public void updateFilm(Film film) {
         int idFilm = film.getId();
+
         if (!filmStorage.getAllFilms().containsKey(idFilm)) {
             log.error("Film not found! id = " + idFilm);
             throw new NoFoundElementException("Film not found! id = " + idFilm);
         }
-
         if (filmValidator.validate(film)) {
             log.info("Update object in filmTracker " + film);
 
@@ -58,30 +59,34 @@ public class FilmService {
 
     public void addLikeToFilm(int id, int idUser) {
         if (!userService.getAllUser().containsKey(idUser)) {
-            log.debug("removeFriend : User with id = " + idUser + "not found!");
-            throw new NoFoundElementException("User with id = " + idUser + "not found!");
+            log.error("addLikeToFilm : User with id = " + idUser + " not found!");
+            throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
         if (!filmStorage.getAllFilms().containsKey(id)) {
-            log.error("Film not found! id = " + id);
+            log.error("addLikeToFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
 
-        log.info("Add like to film with id =  " + id);
-        getFilmById(id).getLikes().add(userService.getUserById(idUser));
+        log.info("Add like to film with id = " + id);
+        getFilmById(id)
+                .getLikes()
+                .add(userService.getUserById(idUser));
     }
 
     public void removeLikeFromFilm(int id, int idUser) {
         if (!userService.getAllUser().containsKey(idUser)) {
-            log.debug("removeFriend : User with id = " + idUser + "not found!");
-            throw new NoFoundElementException("User with id = " + idUser + "not found!");
+            log.error("removeLikeFromFilm : User with id = " + idUser + " not found!");
+            throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
         if (!filmStorage.getAllFilms().containsKey(id)) {
-            log.error("Film not found! id = " + id);
+            log.error("removeLikeFromFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
 
-        log.info("Remove like from film by id =  " + id);
-        getFilmById(id).getLikes().remove(userService.getUserById(idUser));
+        log.info("Remove like from film by id = " + id);
+        getFilmById(id)
+                .getLikes()
+                .remove(userService.getUserById(idUser));
     }
 
     public List<Film> getMostPopularFilm(int count) {
