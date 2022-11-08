@@ -56,7 +56,7 @@ public class InMemoryFilmStorage  implements FilmStorage {
         return filmsTracker;
     }
 
-    public int addCounter(){
+    private int addCounter(){
         return ++filmsTrackerCounter;
     }
 }

@@ -13,7 +13,7 @@ public class UserValidator {
     public boolean validate(User user) {
         boolean approveUser = true;
 
-        if (!user.getEmail().contains("@") || user.getEmail().isEmpty() || user.getEmail() == null) {
+        if (user.getEmail() == null || !user.getEmail().contains("@") || user.getEmail().isEmpty()) {
             approveUser = false;
         } else if (user.getLogin().isEmpty() || user.getLogin().contains(" ")) {
             approveUser = false;

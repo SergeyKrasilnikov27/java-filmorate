@@ -63,7 +63,7 @@ public class InMemoryUserStorage implements UserStorage {
         return usersTracker;
     }
 
-    public int addCounter(){
+    private int addCounter(){
         return ++usersTrackerCounter;
     }
 }

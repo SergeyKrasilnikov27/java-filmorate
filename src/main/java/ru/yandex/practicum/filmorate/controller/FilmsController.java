@@ -22,14 +22,12 @@ public class FilmsController {
 
     @GetMapping
     public List<Film> getAllFilm() {
-        return new ArrayList(filmService.getAllFilm().values());
+        return new ArrayList<>(filmService.getAllFilm().values());
     }
 
     @PostMapping
     public Film createFilm(@RequestBody Film film) {
-        filmService.createFilm(film);
-
-        return film;
+        return filmService.createFilm(film);
     }
 
     @PutMapping
@@ -37,6 +35,11 @@ public class FilmsController {
         filmService.updateFilm(film);
 
         return film;
+    }
+
+    @DeleteMapping
+    public Film removeFilm(@RequestBody Film film) {
+        return filmService.removeFilm(film);
     }
 
     @GetMapping("/{id}")

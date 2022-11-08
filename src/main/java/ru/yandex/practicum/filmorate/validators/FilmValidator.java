@@ -15,15 +15,15 @@ public class FilmValidator {
     public boolean validate(Film film) {
         boolean approveFilm = true;
 
-        if (film.getDescription().isEmpty()) {
+        if (film.getName() == null || film.getName().isEmpty()) {
+            approveFilm = false;
+        } else if (film.getDescription().isEmpty()) {
             approveFilm = false;
         } else if (film.getDescription().length() > 200) {
             approveFilm = false;
         } else if (film.getDuration() < 0) {
             approveFilm = false;
         } else if (lastFilmDate.isAfter(film.getReleaseDate())) {
-            approveFilm = false;
-        } else if (film.getName().isEmpty() || film.getName() == null) {
             approveFilm = false;
         }
 

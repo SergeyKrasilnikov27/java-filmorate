@@ -22,7 +22,7 @@ public class UsersController {
 
     @GetMapping
     public List<User> getAllUser() {
-        return new ArrayList(userService.getAllUser().values());
+        return new ArrayList<>(userService.getAllUser().values());
     }
 
     @PostMapping

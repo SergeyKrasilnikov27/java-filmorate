@@ -40,6 +40,18 @@ public class FilmService {
         return film;
     }
 
+    public Film removeFilm(Film film) {
+        if (filmValidator.validate(film)) {
+            log.info("Create new object in filmStorage with id = " + film.getId());
+            filmStorage.removeFilm(film);
+        } else {
+            log.error("Validation error when update object in FilmStorage!");
+            throw new ValidationException("Validation error!");
+        }
+
+        return film;
+    }
+
     public void updateFilm(Film film) {
         int idFilm = film.getId();
 
