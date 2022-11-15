@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.storage.UserStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.validators.UserValidator;
 import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException;
 import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class UserService {
-    private UserStorage userStorage;
+    private InMemoryUserStorage userStorage;
     private final UserValidator userValidator;
 
     @Autowired
-    public UserService(UserStorage userStorage, UserValidator userValidator) {
+    public UserService(InMemoryUserStorage userStorage, UserValidator userValidator) {
         this.userStorage = userStorage;
         this.userValidator = userValidator;
     }
@@ -37,15 +37,8 @@ public class UserService {
     }
 
     public void removeFriend(int id, int friendId) {
-        if (!userStorage.getAllUser().containsKey(id)) {
-            log.debug("removeFriend : User with id = " + id + "not found!");
-            throw new NoFoundElementException("User with id = " + id + "not found!");
-        }
-
-        if (!userStorage.getAllUser().containsKey(friendId)) {
-            log.debug("removeFriend : User with id = " + friendId + "not found!");
-            throw new NoFoundElementException("User with id = " + friendId + "not found!");
-        }
+        userStorage.checkAvailabilityOfUser(id);
+        userStorage.checkAvailabilityOfUser(friendId);
 
         if (!getUserFriends(id).contains(userStorage.getAllUser().get(friendId))) {
             log.debug("removeFriend : User with id = " + friendId + "not found!");
@@ -53,8 +46,8 @@ public class UserService {
         }
 
         log.info("Remove friend to user by id = " + id);
-        getUserById(id).getFriends().remove(friendId);
-        getUserById(friendId).getFriends().remove(id);
+        getUserById(id).removeFriend(friendId);
+        getUserById(friendId).removeFriend(id);
     }
 
     public void addFriend(int id, int friendId) {
@@ -106,9 +99,10 @@ public class UserService {
         }
 
         log.info("Take all common friends of User " + id + " and " + friendId);
+        List<User> userFriends = getUserFriends(friendId);
         return getUserFriends(id)
                 .stream()
-                .filter(getUserFriends(friendId) :: contains)
+                .filter(userFriends :: contains)
                 .collect(Collectors.toList());
     }
 
@@ -124,7 +118,7 @@ public class UserService {
         }
 
         log.info("Get user id = " + id);
-        return userStorage.getAllUser().get(id);
+        return userStorage.gitUserById(id);
     }
 
     public List<User> getUserFriends(int id) {
@@ -137,7 +131,7 @@ public class UserService {
         return getUserById(id)
                 .getFriends()
                 .stream()
-                .map((userId) -> getUserById(userId))
+                .map(this::getUserById)
                 .collect(Collectors.toList());
     }
 }

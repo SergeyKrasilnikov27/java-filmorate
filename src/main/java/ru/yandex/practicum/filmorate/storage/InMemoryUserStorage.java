@@ -66,4 +66,15 @@ public class InMemoryUserStorage implements UserStorage {
     private int addCounter(){
         return ++usersTrackerCounter;
     }
+
+    public void checkAvailabilityOfUser(int id) {
+        if (!usersTracker.containsKey(id)) {
+            log.debug("removeFriend : User with id = " + id + "not found!");
+            throw new NoFoundElementException("User with id = " + id + "not found!");
+        }
+    }
+
+    public User gitUserById(int id) {
+        return usersTracker.get(id);
+    }
 }

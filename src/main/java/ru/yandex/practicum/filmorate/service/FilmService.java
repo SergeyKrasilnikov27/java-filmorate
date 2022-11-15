@@ -4,25 +4,25 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
 import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException;
 import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class FilmService {
-    private final FilmStorage filmStorage;
+    private final InMemoryFilmStorage filmStorage;
     private final UserService userService;
     private final FilmValidator filmValidator;
 
     @Autowired
-    public FilmService(FilmStorage filmStorage, FilmValidator filmValidator, UserService userService) {
+    public FilmService(InMemoryFilmStorage filmStorage, FilmValidator filmValidator, UserService userService) {
         this.filmStorage = filmStorage;
         this.filmValidator = filmValidator;
         this.userService = userService;
@@ -55,10 +55,9 @@ public class FilmService {
     public void updateFilm(Film film) {
         int idFilm = film.getId();
 
-        if (!filmStorage.getAllFilms().containsKey(idFilm)) {
-            log.error("Film not found! id = " + idFilm);
-            throw new NoFoundElementException("Film not found! id = " + idFilm);
-        }
+
+        filmStorage.checkAvailabilityOfFilm(film.getId());
+
         if (filmValidator.validate(film)) {
             log.info("Update object in filmTracker " + film);
 
@@ -80,9 +79,13 @@ public class FilmService {
         }
 
         log.info("Add like to film with id = " + id);
+        addLike(id, idUser);
+    }
+
+    public void addLike(int id, int idUser) {
         getFilmById(id)
                 .getLikes()
-                .add(userService.getUserById(idUser));
+                .add(idUser);
     }
 
     public void removeLikeFromFilm(int id, int idUser) {
@@ -112,9 +115,9 @@ public class FilmService {
                 .collect(Collectors.toList());
     }
 
-    public Map<Integer, Film> getAllFilm() {
+    public List<Film> getAllFilm() {
         log.info("Take all films");
-        return filmStorage.getAllFilms();
+        return new ArrayList<>(filmStorage.getAllFilms().values());
     }
 
     public Film getFilmById(int id) {
@@ -124,6 +127,6 @@ public class FilmService {
         }
 
         log.info("Get film by id = " + id);
-        return filmStorage.getAllFilms().get(id);
+        return filmStorage.gitFilmById(id);
     }
 }

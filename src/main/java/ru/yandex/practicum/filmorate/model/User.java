@@ -26,4 +26,8 @@ public class User {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
     private Set<Integer> friends = new HashSet<>();
+
+    public void removeFriend(int friendId) {
+        friends.remove(friendId);
+    }
 }

@@ -59,4 +59,15 @@ public class InMemoryFilmStorage  implements FilmStorage {
     private int addCounter(){
         return ++filmsTrackerCounter;
     }
+
+    public void checkAvailabilityOfFilm(int idFilm) {
+        if (!filmsTracker.containsKey(idFilm)) {
+            log.error("Film not found! id = " + idFilm);
+            throw new NoFoundElementException("Film not found! id = " + idFilm);
+        }
+    }
+
+    public Film gitFilmById(int id) {
+        return filmsTracker.get(id);
+    }
 }

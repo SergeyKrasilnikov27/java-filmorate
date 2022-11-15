@@ -22,7 +22,7 @@ public class Film {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
     private int duration;
-    private List<User> likes = new ArrayList<>();
+    private List<Integer> likes = new ArrayList<>();
     private int rate;
 }
 
