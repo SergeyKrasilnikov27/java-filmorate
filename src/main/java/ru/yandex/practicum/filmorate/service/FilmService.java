@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
 import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException;
 import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
@@ -17,14 +18,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FilmService {
     private final FilmStorage filmStorage;
-    private final UserService userService;
+    private final UserStorage userStorage;
     private final FilmValidator filmValidator;
 
     @Autowired
-    public FilmService(FilmStorage filmStorage, FilmValidator filmValidator, UserService userService) {
+    public FilmService(FilmStorage filmStorage, FilmValidator filmValidator, UserStorage userStorage) {
         this.filmStorage = filmStorage;
         this.filmValidator = filmValidator;
-        this.userService = userService;
+        this.userStorage = userStorage;
     }
 
     public Film createFilm(Film film) {
@@ -66,7 +67,7 @@ public class FilmService {
     }
 
     public void addLikeToFilm(int id, int idUser) {
-        if (!userService.getAllUser().contains(userService.getUserById(idUser))) {
+        if (!userStorage.getUsersTracker().containsKey(idUser)) {
             log.error("addLikeToFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
@@ -84,7 +85,7 @@ public class FilmService {
     }
 
     public void removeLikeFromFilm(int id, int idUser) {
-        if (!userService.getAllUser().contains(userService.getUserById(idUser))) {
+        if (!userStorage.getUsersTracker().containsKey(idUser)) {
             log.error("addLikeToFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
