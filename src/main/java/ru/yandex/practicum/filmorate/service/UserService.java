@@ -104,7 +104,9 @@ public class UserService {
 
     public List<User> getUserFriends(int id) {
         log.info("Get all user friends id = " + id);
-        return getUserById(id)
+        User user = getUserById(id);
+
+        return user
                 .getFriends()
                 .stream()
                 .map(this::getUserById)

@@ -74,7 +74,7 @@ public class InMemoryUserStorage implements UserStorage {
     public void checkAvailabilityOfUser(int id) {
         if (!usersTracker.containsKey(id)) {
             log.debug("User with id = " + id + "not found!");
-            throw new NoFoundElementException("User with id = " + id + "not found!");
+            throw new NoFoundElementException("User with id = " + id + " not found!");
         }
     }
 
