@@ -8,6 +8,7 @@ import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @Slf4j
@@ -74,5 +75,10 @@ public class InMemoryFilmStorage  implements FilmStorage {
         checkAvailabilityOfFilm(id);
 
         return filmsTracker.get(id);
+    }
+
+    @Override
+    public Map<Integer, Film> getFilmsTracker() {
+        return filmsTracker;
     }
 }

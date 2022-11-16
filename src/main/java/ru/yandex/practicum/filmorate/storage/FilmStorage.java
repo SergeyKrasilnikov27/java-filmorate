@@ -18,4 +18,6 @@ public interface FilmStorage {
     void checkAvailabilityOfFilm(int idFilm);
 
     Film gitFilmById(int id);
+
+    Map<Integer, Film> getFilmsTracker();
 }
