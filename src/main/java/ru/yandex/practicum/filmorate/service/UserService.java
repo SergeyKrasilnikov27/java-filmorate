@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.validators.UserValidator;
@@ -10,6 +11,7 @@ import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException
 import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -130,5 +132,9 @@ public class UserService {
                 .stream()
                 .map(this::getUserById)
                 .collect(Collectors.toList());
+    }
+
+    public Map<Integer, User> getUsersTracker() {
+        return userStorage.getUsersTracker();
     }
 }

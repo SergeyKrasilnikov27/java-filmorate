@@ -11,15 +11,11 @@ import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
 import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
-import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
 import ru.yandex.practicum.filmorate.validators.UserValidator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
@@ -179,44 +175,9 @@ class JavaFilmorateApplicationTests {
         assertFalse(assertResult);
     }
 
-    /*@Test
+    @Test
     void test() {
-        FilmsController filmController = new FilmsController(new FilmService(new InMemoryFilmStorage(), new FilmValidator(), new UserStorage() {
-            @Override
-            public User createUser(User user) {
-                return null;
-            }
-
-            @Override
-            public User removeUser(User film) {
-                return null;
-            }
-
-            @Override
-            public User updateUser(User film) {
-                return null;
-            }
-
-            @Override
-            public List<User> getAllUser() {
-                return null;
-            }
-
-            @Override
-            public void checkAvailabilityOfUser(int id) {
-
-            }
-
-            @Override
-            public User gitUserById(int id) {
-                return null;
-            }
-
-            @Override
-            public Map<Integer, User> getUsersTracker() {
-                return null;
-            }
-        }));
+        FilmsController filmController = new FilmsController(new FilmService(new InMemoryFilmStorage(), new FilmValidator(), new UserService(new InMemoryUserStorage(), new UserValidator())));
         UsersController userController = new UsersController(new UserService(new InMemoryUserStorage(), new UserValidator()));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate birthdayDate = LocalDate.parse("1946-08-20", formatter);
@@ -252,7 +213,7 @@ class JavaFilmorateApplicationTests {
         filmController.addLikeToFilm(2, 1);
     }
 
-    @Test
+    /*@Test
     void test2() {
         FilmsController filmController = new FilmsController(new FilmService(new InMemoryFilmStorage(), new FilmValidator(), new UserService(new InMemoryUserStorage(), new UserValidator())));
         UsersController userController = new UsersController(new UserService(new InMemoryUserStorage(), new UserValidator()));
