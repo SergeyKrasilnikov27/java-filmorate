@@ -75,6 +75,11 @@ public class UserService {
     }
 
     public void updateUser(User user) {
+        if (!userStorage.getAllUser().contains(user)) {
+            log.debug("updateUser : User with id = " + user.getId() + "not found!");
+            throw new NoFoundElementException("User with id = " + user.getId() + " not found!");
+        }
+
         if (userValidator.validate(user)) {
             log.info("Update object in userTracker " + user);
 
