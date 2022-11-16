@@ -38,9 +38,6 @@ public class UserService {
     }
 
     public void removeFriend(int id, int friendId) {
-        userStorage.checkAvailabilityOfUser(id);
-        userStorage.checkAvailabilityOfUser(friendId);
-
         if (!getUserFriends(id).contains(userStorage.getAllUser().get(friendId))) {
             log.debug("removeFriend : User with id = " + friendId + "not found!");
             throw new NoFoundElementException("User with id = " + friendId + "not found!");
@@ -60,16 +57,6 @@ public class UserService {
     }
 
     public void addFriend(int id, int friendId) {
-        if (!userStorage.getUsersTracker().containsKey(id)) {
-            log.debug("addFriend : User with id = " + id + "not found!");
-            throw new NoFoundElementException("User with id = " + id + "not found!");
-        }
-
-        if (!userStorage.getUsersTracker().containsKey(friendId)) {
-            log.debug("addFriend : User with id = " + friendId + "not found!");
-            throw new NoFoundElementException("User with id = " + friendId + "not found!");
-        }
-
         log.info("Add friend to user by id = " + id);
         getUserById(id).addFriend(friendId);
         getUserById(friendId).addFriend(id);
@@ -97,16 +84,6 @@ public class UserService {
     }
 
     public List<User> getCommonFriends(int id, int friendId) {
-        if (!userStorage.getUsersTracker().containsKey(id)) {
-            log.debug("getCommonFriends : User with id = " + id + "not found!");
-            throw new NoFoundElementException("User with id = " + id + "not found!");
-        }
-
-        if (!userStorage.getUsersTracker().containsKey(friendId)) {
-            log.debug("getCommonFriends : User with id = " + friendId + "not found!");
-            throw new NoFoundElementException("User with id = " + friendId + "not found!");
-        }
-
         log.info("Take all common friends of User " + id + " and " + friendId);
         List<User> userFriends = getUserFriends(friendId);
         return getUserFriends(id)

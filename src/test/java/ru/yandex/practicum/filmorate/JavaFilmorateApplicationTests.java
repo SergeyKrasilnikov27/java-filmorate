@@ -211,6 +211,7 @@ class JavaFilmorateApplicationTests {
         filmController.createFilm(film1);
 
         filmController.addLikeToFilm(2, 1);
+        filmController.removeLikeFromFilm(2, 1);
     }
 
     /*@Test
