@@ -8,6 +8,7 @@ import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @Slf4j
@@ -82,5 +83,10 @@ public class InMemoryUserStorage implements UserStorage {
         checkAvailabilityOfUser(id);
 
         return usersTracker.get(id);
+    }
+
+    @Override
+    public Map<Integer, User> getUsersTracker() {
+        return usersTracker;
     }
 }

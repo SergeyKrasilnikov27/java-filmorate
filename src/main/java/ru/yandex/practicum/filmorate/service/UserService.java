@@ -10,7 +10,6 @@ import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException
 import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,12 +58,12 @@ public class UserService {
     }
 
     public void addFriend(int id, int friendId) {
-        if (!userStorage.getAllUser().contains(getUserById(id))) {
+        if (!userStorage.getUsersTracker().containsKey(id)) {
             log.debug("addFriend : User with id = " + id + "not found!");
             throw new NoFoundElementException("User with id = " + id + "not found!");
         }
 
-        if (!userStorage.getAllUser().contains(getUserById(friendId))) {
+        if (!userStorage.getUsersTracker().containsKey(friendId)) {
             log.debug("addFriend : User with id = " + friendId + "not found!");
             throw new NoFoundElementException("User with id = " + friendId + "not found!");
         }
@@ -75,7 +74,7 @@ public class UserService {
     }
 
     public void updateUser(User user) {
-        if (!userStorage.getAllUser().contains(user)) {
+        if (!userStorage.getUsersTracker().containsKey(user.getId())) {
             log.debug("updateUser : User with id = " + user.getId() + "not found!");
             throw new NoFoundElementException("User with id = " + user.getId() + " not found!");
         }
@@ -96,12 +95,12 @@ public class UserService {
     }
 
     public List<User> getCommonFriends(int id, int friendId) {
-        if (!userStorage.getAllUser().contains(getUserById(id))) {
+        if (!userStorage.getUsersTracker().containsKey(id)) {
             log.debug("getCommonFriends : User with id = " + id + "not found!");
             throw new NoFoundElementException("User with id = " + id + "not found!");
         }
 
-        if (!userStorage.getAllUser().contains(getUserById(friendId))) {
+        if (!userStorage.getUsersTracker().containsKey(friendId)) {
             log.debug("getCommonFriends : User with id = " + friendId + "not found!");
             throw new NoFoundElementException("User with id = " + friendId + "not found!");
         }

@@ -212,4 +212,29 @@ class JavaFilmorateApplicationTests {
 
         filmController.addLikeToFilm(2, 1);
     }
+
+    /*@Test
+    void test2() {
+        FilmsController filmController = new FilmsController(new FilmService(new InMemoryFilmStorage(), new FilmValidator(), new UserService(new InMemoryUserStorage(), new UserValidator())));
+        UsersController userController = new UsersController(new UserService(new InMemoryUserStorage(), new UserValidator()));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate birthdayDate = LocalDate.parse("1946-08-20", formatter);
+        LocalDate birthdayDate1 = LocalDate.parse("1976-09-20", formatter);
+
+        User user = new User();
+        user.setBirthday(birthdayDate);
+        user.setLogin("dolore");
+        user.setEmail("mail@mail.ru");
+        user.setName("Nick Name");
+
+        User user1 = new User();
+        user1.setBirthday(birthdayDate1);
+        user1.setLogin("doloreUpdate");
+        user1.setId(1);
+        user1.setEmail("mail@yandex.ru");
+        user1.setName("est adipisicing");
+
+        userController.createUser(user);
+        userController.updateUser(user1);
+    }*/
 }
