@@ -4,13 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
 import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException;
 import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -68,11 +66,11 @@ public class FilmService {
     }
 
     public void addLikeToFilm(int id, int idUser) {
-        if (userService.getUserById(idUser).getClass() == User.class) {
+        if (!userService.getAllUser().contains(userService.getUserById(idUser))) {
             log.error("addLikeToFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
-        if (filmStorage.gitFilmById(id).getClass() == Film.class) {
+        if (!filmStorage.getAllFilms().contains(filmStorage.gitFilmById(id))) {
             log.error("addLikeToFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
@@ -86,11 +84,11 @@ public class FilmService {
     }
 
     public void removeLikeFromFilm(int id, int idUser) {
-        if (userService.getUserById(idUser).getClass() == User.class) {
+        if (!userService.getAllUser().contains(userService.getUserById(idUser))) {
             log.error("addLikeToFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
-        if (filmStorage.gitFilmById(id).getClass() == Film.class) {
+        if (!filmStorage.getAllFilms().contains(filmStorage.gitFilmById(id))) {
             log.error("addLikeToFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
