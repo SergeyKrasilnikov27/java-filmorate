@@ -70,10 +70,10 @@ public class FilmService {
             log.error("addLikeToFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
-        if (!filmStorage.getFilmsTracker().containsKey(id)) {
+        /*if (!filmStorage.getFilmsTracker().containsKey(id)) {
             log.error("addLikeToFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
-        }
+        }*/
 
         log.info("Add like to film with id = " + id);
         addLike(id, idUser);
