@@ -4,7 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
 import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException;
 import ru.yandex.practicum.filmorate.validators.exeption.ValidationException;
@@ -17,12 +18,12 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class FilmService {
-    private final InMemoryFilmStorage filmStorage;
+    private final FilmStorage filmStorage;
     private final UserService userService;
     private final FilmValidator filmValidator;
 
     @Autowired
-    public FilmService(InMemoryFilmStorage filmStorage, FilmValidator filmValidator, UserService userService) {
+    public FilmService(FilmStorage filmStorage, FilmValidator filmValidator, UserService userService) {
         this.filmStorage = filmStorage;
         this.filmValidator = filmValidator;
         this.userService = userService;
@@ -40,7 +41,8 @@ public class FilmService {
         return film;
     }
 
-    public Film removeFilm(Film film) {
+    public Film removeFilm(int idFilm) {
+        Film film = filmStorage.gitFilmById(idFilm);
         if (filmValidator.validate(film)) {
             log.info("Create new object in filmStorage with id = " + film.getId());
             filmStorage.removeFilm(film);
@@ -53,9 +55,6 @@ public class FilmService {
     }
 
     public void updateFilm(Film film) {
-        int idFilm = film.getId();
-
-
         filmStorage.checkAvailabilityOfFilm(film.getId());
 
         if (filmValidator.validate(film)) {
@@ -69,11 +68,11 @@ public class FilmService {
     }
 
     public void addLikeToFilm(int id, int idUser) {
-        if (!userService.getAllUser().containsKey(idUser)) {
+        if (userService.getUserById(idUser).getClass() == User.class) {
             log.error("addLikeToFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
-        if (!filmStorage.getAllFilms().containsKey(id)) {
+        if (filmStorage.gitFilmById(id).getClass() == Film.class) {
             log.error("addLikeToFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
@@ -83,32 +82,27 @@ public class FilmService {
     }
 
     public void addLike(int id, int idUser) {
-        getFilmById(id)
-                .getLikes()
-                .add(idUser);
+        getFilmById(id).addLike(idUser);
     }
 
     public void removeLikeFromFilm(int id, int idUser) {
-        if (!userService.getAllUser().containsKey(idUser)) {
-            log.error("removeLikeFromFilm : User with id = " + idUser + " not found!");
+        if (userService.getUserById(idUser).getClass() == User.class) {
+            log.error("addLikeToFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
-        if (!filmStorage.getAllFilms().containsKey(id)) {
-            log.error("removeLikeFromFilm : Film not found! id = " + id);
+        if (filmStorage.gitFilmById(id).getClass() == Film.class) {
+            log.error("addLikeToFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
 
         log.info("Remove like from film by id = " + id);
-        getFilmById(id)
-                .getLikes()
-                .remove(userService.getUserById(idUser));
+        getFilmById(id).removeLike(idUser);
     }
 
     public List<Film> getMostPopularFilm(int count) {
         log.info("Remove most popular film");
         return filmStorage
                 .getAllFilms()
-                .values()
                 .stream()
                 .sorted(Comparator.comparingInt(film -> film.getLikes().size() * (-1)))
                 .limit(count)
@@ -117,15 +111,10 @@ public class FilmService {
 
     public List<Film> getAllFilm() {
         log.info("Take all films");
-        return new ArrayList<>(filmStorage.getAllFilms().values());
+        return filmStorage.getAllFilms();
     }
 
     public Film getFilmById(int id) {
-        if (!filmStorage.getAllFilms().containsKey(id)) {
-            log.error("Film not found! id = " + id);
-            throw new NoFoundElementException("Film not found! id = " + id);
-        }
-
         log.info("Get film by id = " + id);
         return filmStorage.gitFilmById(id);
     }

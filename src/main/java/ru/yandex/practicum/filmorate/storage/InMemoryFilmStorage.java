@@ -5,8 +5,9 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @Component
 @Slf4j
@@ -52,14 +53,15 @@ public class InMemoryFilmStorage  implements FilmStorage {
     }
 
     @Override
-    public Map<Integer, Film> getAllFilms() {
-        return filmsTracker;
+    public List<Film> getAllFilms() {
+        return new ArrayList<>(filmsTracker.values());
     }
 
     private int addCounter(){
         return ++filmsTrackerCounter;
     }
 
+    @Override
     public void checkAvailabilityOfFilm(int idFilm) {
         if (!filmsTracker.containsKey(idFilm)) {
             log.error("Film not found! id = " + idFilm);
@@ -67,7 +69,10 @@ public class InMemoryFilmStorage  implements FilmStorage {
         }
     }
 
+    @Override
     public Film gitFilmById(int id) {
+        checkAvailabilityOfFilm(id);
+
         return filmsTracker.get(id);
     }
 }

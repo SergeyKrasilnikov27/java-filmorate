@@ -21,7 +21,7 @@ public class UsersController {
 
     @GetMapping
     public List<User> getAllUser() {
-        return new ArrayList<>(userService.getAllUser().values());
+        return userService.getAllUser();
     }
 
     @PostMapping
@@ -61,5 +61,10 @@ public class UsersController {
     @DeleteMapping("/{id}/friends/{friendId}")
     public void removeFriend(@PathVariable Integer id, @PathVariable Integer friendId) {
         userService.removeFriend(id, friendId);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removeUser(@PathVariable Integer id) {
+        userService.removeUser(id);
     }
 }

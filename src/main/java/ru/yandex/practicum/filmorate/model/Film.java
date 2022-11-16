@@ -24,5 +24,13 @@ public class Film {
     private int duration;
     private List<Integer> likes = new ArrayList<>();
     private int rate;
+
+    public void addLike(int id) {
+        likes.add(id);
+    }
+
+    public void removeLike(int id) {
+        likes.remove(id);
+    }
 }
 

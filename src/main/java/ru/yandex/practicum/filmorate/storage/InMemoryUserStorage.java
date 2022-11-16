@@ -5,7 +5,9 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Component
 @Slf4j
@@ -59,22 +61,26 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public HashMap<Integer, User> getAllUser() {
-        return usersTracker;
+    public List<User> getAllUser() {
+        return new ArrayList<>(usersTracker.values());
     }
 
     private int addCounter(){
         return ++usersTrackerCounter;
     }
 
+    @Override
     public void checkAvailabilityOfUser(int id) {
         if (!usersTracker.containsKey(id)) {
-            log.debug("removeFriend : User with id = " + id + "not found!");
+            log.debug("User with id = " + id + "not found!");
             throw new NoFoundElementException("User with id = " + id + "not found!");
         }
     }
 
+    @Override
     public User gitUserById(int id) {
+        checkAvailabilityOfUser(id);
+
         return usersTracker.get(id);
     }
 }
