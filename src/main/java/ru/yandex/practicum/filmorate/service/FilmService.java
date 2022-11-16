@@ -88,10 +88,10 @@ public class FilmService {
             log.error("removeLikeFromFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
-        if (!filmStorage.getFilmsTracker().containsKey(id)) {
+        /*if (!filmStorage.getFilmsTracker().containsKey(id)) {
             log.error("removeLikeFromFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
-        }
+        }*/
 
         log.info("Remove like from film by id = " + id);
         getFilmById(id).removeLike(idUser);
