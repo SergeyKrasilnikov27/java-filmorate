@@ -70,7 +70,7 @@ public class FilmService {
             log.error("addLikeToFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
-        if (!filmStorage.getAllFilms().contains(filmStorage.gitFilmById(id))) {
+        if (!filmStorage.getFilmsTracker().containsKey(id)) {
             log.error("addLikeToFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
@@ -88,7 +88,7 @@ public class FilmService {
             log.error("removeLikeFromFilm : User with id = " + idUser + " not found!");
             throw new NoFoundElementException("User with id = " + idUser + " not found!");
         }
-        if (!filmStorage.getAllFilms().contains(filmStorage.gitFilmById(id))) {
+        if (!filmStorage.getFilmsTracker().containsKey(id)) {
             log.error("removeLikeFromFilm : Film not found! id = " + id);
             throw new NoFoundElementException("Film not found! id = " + id);
         }
