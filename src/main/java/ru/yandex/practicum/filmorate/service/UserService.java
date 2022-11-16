@@ -59,12 +59,12 @@ public class UserService {
     }
 
     public void addFriend(int id, int friendId) {
-        if (!userStorage.getAllUser().contains(id)) {
+        if (!userStorage.getAllUser().contains(getUserById(id))) {
             log.debug("addFriend : User with id = " + id + "not found!");
             throw new NoFoundElementException("User with id = " + id + "not found!");
         }
 
-        if (!userStorage.getAllUser().contains(friendId)) {
+        if (!userStorage.getAllUser().contains(getUserById(friendId))) {
             log.debug("addFriend : User with id = " + friendId + "not found!");
             throw new NoFoundElementException("User with id = " + friendId + "not found!");
         }
@@ -75,7 +75,7 @@ public class UserService {
     }
 
     public void updateUser(User user) {
-        if (!userStorage.getAllUser().contains(user.getId())) {
+        if (!userStorage.getAllUser().contains(user)) {
             log.debug("updateUser : User with id = " + user.getId() + "not found!");
             throw new NoFoundElementException("User with id = " + user.getId() + "not found!");
         }
@@ -96,12 +96,12 @@ public class UserService {
     }
 
     public List<User> getCommonFriends(int id, int friendId) {
-        if (!userStorage.getAllUser().contains(id)) {
+        if (!userStorage.getAllUser().contains(getUserById(id))) {
             log.debug("getCommonFriends : User with id = " + id + "not found!");
             throw new NoFoundElementException("User with id = " + id + "not found!");
         }
 
-        if (!userStorage.getAllUser().contains(friendId)) {
+        if (!userStorage.getAllUser().contains(getUserById(friendId))) {
             log.debug("getCommonFriends : User with id = " + friendId + "not found!");
             throw new NoFoundElementException("User with id = " + friendId + "not found!");
         }
