@@ -39,8 +39,10 @@ public class UserService {
 
     public void removeFriend(int id, int friendId) {
         log.info("Remove friend to user by id = " + id);
-        getUserById(id).removeFriend(friendId);
-        getUserById(friendId).removeFriend(id);
+        User user = getUserById(id);
+        User friend = getUserById(friendId);
+        user.removeFriend(friendId);
+        friend.removeFriend(id);
     }
 
     public void removeUser(int id) {
@@ -51,8 +53,10 @@ public class UserService {
 
     public void addFriend(int id, int friendId) {
         log.info("Add friend to user by id = " + id);
-        getUserById(id).addFriend(friendId);
-        getUserById(friendId).addFriend(id);
+        User user = getUserById(id);
+        User friend = getUserById(friendId);
+        user.addFriend(friendId);
+        friend.addFriend(id);
     }
 
     public void updateUser(User user) {

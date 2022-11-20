@@ -231,11 +231,12 @@ class JavaFilmorateApplicationTests {
         User user1 = new User();
         user1.setBirthday(birthdayDate1);
         user1.setLogin("doloreUpdate");
-        user1.setId(1);
         user1.setEmail("mail@yandex.ru");
         user1.setName("est adipisicing");
 
         userController.createUser(user);
-        userController.updateUser(user1);
+        userController.createUser(user1);
+        userController.addFriend(user.getId(), user1.getId());
+        userController.getUserFriends(user.getId());
     }*/
 }
