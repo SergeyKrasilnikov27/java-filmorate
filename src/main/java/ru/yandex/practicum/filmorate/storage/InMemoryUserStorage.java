@@ -8,7 +8,6 @@ import ru.yandex.practicum.filmorate.validators.exeption.NoFoundElementException
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Slf4j
@@ -25,9 +24,6 @@ public class InMemoryUserStorage implements UserStorage {
         log.debug("Create new object in userTracker " + user);
         if (user.getId() == 0) {
             user.setId(addCounter());
-        }
-        if (user.getName() == null || user.getName().isBlank()) {
-            user.setName(user.getLogin());
         }
         usersTracker.put(user.getId(), user);
 
@@ -79,14 +75,9 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public User gitUserById(int id) {
+    public User getUserById(int id) {
         checkAvailabilityOfUser(id);
 
         return usersTracker.get(id);
-    }
-
-    @Override
-    public Map<Integer, User> getUsersTracker() {
-        return usersTracker;
     }
 }

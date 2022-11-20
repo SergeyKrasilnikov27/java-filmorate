@@ -71,14 +71,9 @@ public class InMemoryFilmStorage  implements FilmStorage {
     }
 
     @Override
-    public Film gitFilmById(int id) {
+    public Film getFilmById(int id) {
         checkAvailabilityOfFilm(id);
 
         return filmsTracker.get(id);
-    }
-
-    @Override
-    public Map<Integer, Film> getFilmsTracker() {
-        return filmsTracker;
     }
 }

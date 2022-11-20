@@ -40,7 +40,7 @@ public class FilmService {
     }
 
     public Film removeFilm(int idFilm) {
-        Film film = filmStorage.gitFilmById(idFilm);
+        Film film = filmStorage.getFilmById(idFilm);
         if (filmValidator.validate(film)) {
             log.info("Create new object in filmStorage with id = " + film.getId());
             filmStorage.removeFilm(film);
@@ -66,11 +66,6 @@ public class FilmService {
     }
 
     public void addLikeToFilm(int id, int idUser) {
-        if (!userService.getUsersTracker().containsKey(idUser)) {
-            log.error("addLikeToFilm : User with id = " + idUser + " not found!");
-            throw new NoFoundElementException("User with id = " + idUser + " not found!");
-        }
-
         log.info("Add like to film with id = " + id);
         addLike(id, idUser);
     }
@@ -80,10 +75,7 @@ public class FilmService {
     }
 
     public void removeLikeFromFilm(int id, int idUser) {
-        if (!userService.getUsersTracker().containsKey(idUser)) {
-            log.error("removeLikeFromFilm : User with id = " + idUser + " not found!");
-            throw new NoFoundElementException("User with id = " + idUser + " not found!");
-        }
+        userService.checkAvailabilityOfUser(idUser);
 
         log.info("Remove like from film by id = " + id);
         getFilmById(id).removeLike(idUser);
@@ -105,12 +97,7 @@ public class FilmService {
     }
 
     public Film getFilmById(int id) {
-        if (!filmStorage.getFilmsTracker().containsKey(id)) {
-            log.error("Film not found! id = " + id);
-            throw new NoFoundElementException("Film not found! id = " + id);
-        }
-
         log.info("Get film by id = " + id);
-        return filmStorage.gitFilmById(id);
+        return filmStorage.getFilmById(id);
     }
 }
